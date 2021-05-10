@@ -1,12 +1,12 @@
 import React from 'react'
 
-const CalendarHeader = () => {
+const CalendarHeader = ({ onNext, onBack, dateDisplay }) => {
     return (
         <div id="header">
-            <div id="monthDisplay"></div>
+            <div id="monthDisplay">{dateDisplay}</div>
             <div>
-                <button  id="backButton">Back</button>
-                <button  id="nextButton">Next</button>
+                <button onClick={onBack} id="backButton">Back</button>
+                <button onClick={onNext} id="nextButton">Next</button>
             </div>
         </div>
     )

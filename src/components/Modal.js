@@ -4,6 +4,7 @@ const Modal = ({ onSave, onClose }) => {
     const [title, setTitle] = useState('')
     const [error, setError] = useState(false)
 
+    
     return (
         <>
             <div id="newEventModal">

@@ -13,6 +13,7 @@ function App() {
     localStorage.getItem('events') ?
       JSON.parse(localStorage.getItem('events')) :
       [])
+  //add in deleteModalType state for rendering each modal
 
   function eventForDate(date) {
     return events.find(e => e.date === date)
@@ -76,7 +77,10 @@ function App() {
   return (
     <>
       <div id="container">
-        <CalendarHeader />
+        <CalendarHeader
+          dateDisplay={dateDisplay}
+          onNext={() => setNav(nav + 1)}
+          onBack={() => setNav(nav + 1)} />
 
         <div id="weekdays">
           <div>Sunday</div>
@@ -103,14 +107,19 @@ function App() {
 
       </div>
       {
-        clicked && !eventForDate(clicked) &&
-        <Modal
-          onClose={() => setClicked(null)}
-          onSave={title => {
-            setEvents([...events, { title, date: clicked }])
-            setClicked(null)
-          }} />
-      }
+          clicked && !eventForDate(clicked) &&
+          <Modal
+            onClose={() => setClicked(null)}
+            onSave={title => {
+              setEvents([...events, { title, date: clicked }])
+              setClicked(null)
+            }}
+            eventText={eventForDate(clicked) ? eventForDate(clicked).title : null}
+            onDelete={() => {
+              setEvents(events.filter(e => e.date !== clicked))
+              setClicked(null)
+            }} />
+        }
     </>
   );
 }
